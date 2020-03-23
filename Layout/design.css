@@ -99,3 +99,97 @@ body,html{
   	display: table;
   	clear: both;
 }
+/* added for center column */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+
+* {
+   margin: 0;
+   padding: 0;
+   font-family: 'Roboto', sans-serif;
+   list-style-type: none;
+   text-decoration: none;
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   -o-box-sizing: border-box;
+   box-sizing: border-box;
+}
+
+img {
+   max-width: 100%;
+}
+
+
+
+
+.card {
+   position: relative;
+   background: #fff;
+   max-width: 500px;
+   margin: 20px auto;
+box-shadow: 0px 0px 30px 2px #000;
+}
+   .header {
+  
+      background-size: cover;
+      min-height: 350px;
+         
+   }
+   .fa-heart {
+         position: absolute;
+         left: 85%;
+         bottom: 30.7%;
+         background:#17BEBB;
+         color: #fff;
+         font-size: 1.3em;
+         font-weight: bold;
+         padding: 15px;
+         border-radius: 50%;
+         box-shadow: 0px 5px 30px 1px #17BEBB;
+      }
+	   .food {
+         color: #212129;
+         text-align: left;
+         font-weight: normal;
+         text-transform: uppercase;
+         letter-spacing: 0.1em;
+         margin: 5px 30px;
+      }
+	   .fa-clock {
+         color: #9B9B9B;
+         margin: 0 30px;
+      }
+	  .fa-users {
+         color: #9B9B9B;
+      }
+   .text {
+	   marigin-left: 10px; 
+   }
+   .stars {
+      margin: 10px 30px;
+	  color: $star;
+
+   }
+   .info {
+      margin: 10px 30px;
+   }
+   .btn1 {
+      display: block;
+      background: #EF3E36;
+      color: #fff;
+      position: relative;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-align: center;
+      padding: 10px;
+		transition: 250ms;
+   }
+   .btn1:hover{
+	   background :#17BEBB; 
+	    color: #fff;
+	   transition: 250ms;
+	   
+	   
+   }
+      
