@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
     <link href='https://fonts.googleapis.com/css?family=Berkshire Swash' rel='stylesheet'>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -25,7 +26,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-warning fixed-top" style="background-color: #000000; text-align: center">
         
-    <img id="logo" src="C:\Users\hp\Documents\SEMESTER 6 (Spring)\Software Construction\Project\logo.png" style="height: 50px; width: 50px; border-radius: 50%;">
+    <img id="logo" src="logo.png" style="height: 50px; width: 50px; border-radius: 50%;">
     
     <p class="mt-3" href="#" id="brand" style="font-family: 'Berkshire Swash'; font-size: 30px; color: #FFFFFFF"> Recipe Finder </p>
     
@@ -72,9 +73,34 @@
             <p>Favourites Column</p>
         </div>
   
-        <div class="column" id="second_column" style="background-color:#bbb;">
-            <h2>Column 2</h2>
-            <p>List column</p>
+        <div class="column" id="second_column" >
+            <div class="card">
+   <div class="header">
+   <img src = "recipe.jpeg"alt = "Picture for recipe">
+      <div class="icon">
+      <a href="#"><i class=" fa fa-heart"></i></a>
+      </div>
+   </div>
+   <div class="text">
+      <h1 class="food">
+         Chinese Noodles
+      </h1>
+      <i class="fa fa-clock" aria-hidden="true"> 15 Mins</i>
+      <i class="fa fa-users"> Serves 2</i>
+      
+      <div class="stars">
+         <li>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star-o"></i></a>
+         </li>
+      </div>
+      <p class="info"> The order information and details are here</p>
+   </div>
+   <a href="#" class="btn1">Let's Cook!</a>
+</div>
         </div>
   
         <div class="column" id="third_column" style="background-color:#ccc;">
