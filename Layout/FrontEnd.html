@@ -7,18 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="design.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
     <link href='https://fonts.googleapis.com/css?family=Berkshire Swash' rel='stylesheet'>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
+	
+
+	<!-- This is added by maooz as a dummy js file to remove later on whe working on backend -->
+	<script src="dummyjs_Maooz.js"></script>  
 
 </head>
 
@@ -69,9 +67,17 @@
     <div class="row">
 
         <div class="column" id="first_column" style="background-color:#aaa;">
-            <h2>Column 1</h2>
-            <p>Favourites Column</p>
-        </div>
+			<!--This would be updated on runtime  -->
+
+			<div class="row"><img class="recipe_image" src="moms_spaghetti.jpg"><div><p class="recipe_name"><a href="#" onclick="onRecipeNameClick('Mom\'s Spaghetti')">Mom's spaghetti</a></p><p class="recipe_description">Recipe by Eminem</p></div></div>
+			
+
+		</div>
+
+
+
+
+
   
         <div class="column" id="second_column" >
             <div class="card">
