@@ -18,7 +18,18 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
     <link href='https://fonts.googleapis.com/css?family=Berkshire Swash' rel='stylesheet'>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
+
+	
+
+	<!-- This is added by maooz as a dummy js file to remove later on whe working on backend -->
+	<script src="dummyjs_Maooz.js"></script> 
+  <!-- This is added by Mahnoor as a dummy to remove later on whe working on backend -->
+  <script type="text/javascript" src="Recipes-Dummy-Mahnoor.json"></script>
+
+  <!--CSS for third column----->
+  <link rel="stylesheet" type="text/css" href="shopping-list.css">
+ 
+
 
 </head>
 
@@ -101,16 +112,77 @@
    </div>
    <a href="#" class="btn1">Let's Cook!</a>
 </div>
-        </div>
-  
-        <div class="column" id="third_column" style="background-color:#ccc;">
-            <h2>Column 3</h2>
-            <p>Cart column</p>
-        </div>
-
-    </div>
 </div>
+  
+  <div class="column" id="third_column" style="box-shadow: 0px 0px 10px 2px #000;">
 
+    <div id='Cart'>
+      <h4 >View My Shopping List</h4>
+    </div>
+
+    <div class="cart">
+    <div id="Ingredients">
+      <ul>
+        <li>
+          <div class='each-item'> 
+            <h6>Pack of Noodles </h6>
+            <p>
+              <input type="text" class="qty" placeholder="3"> x $5.00
+              <span><a href="#"><i class='fa fa-minus-circle'></i></a></span>
+            </p>
+           <hr>
+    
+          </div>
+        </li>
+      </ul>
+  </div>
+
+
+  <div class="Sub-Total-Section"> 
+   <ul>
+      <li class="totalRow"><span class="label"><strong>Sub-Total:</strong></span><span class="value"> $35.00</span></li>
+      
+      <li class="totalRow"><span class="label"><strong>Shipping:</strong></span><span class="value"> $5.00</span></li>
+      
+      <li class="totalRow"><span class="label"><strong>Tax:</strong></span><span class="value"> $4.00</span></li>
+   </ul> 
+  </div>
+
+
+  <div class="Total">
+    <li class="totalRow final"><span class="label">TOTAL:</span><span class="value">  $44.00</span></li>
+  </div>
+
+  <div>
+    <button class="check-out-btn"> CHECKOUT</button>
+  </div>
+
+
+</div>
+</div>
+  
+
+<footer> © Recipe Finder</footer>
+
+
+<!--- script for reading json and extracting ingredients, to be adjusted laterwhen working on back-end-->
+<script>
+      $(document).ready(function(){
+        var rec= recipes;
+
+         //Will Need Index of Recipe
+        var sample_rec = rec[0]["ingredients"];
+
+        for(var i=0; i < sample_rec.length; i++)
+        {
+          var name =sample_rec[i]["name"];
+          var quantity=sample_rec[i]["quantity"];
+          $("#Ingredients").append("<li><div class='each-item'><h6>"+name+
+            "</h6><p><input type='text' class='qty' placeholder='" +quantity +"'> x $5.00(price here) <span style='left:30%';> <a href='#''><i class='fa fa-minus-circle'></i></a> </span></p><hr></div></li>");
+        }
+        
+     });
+ </script>
 
 </body>
 </html>
