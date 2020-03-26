@@ -1,3 +1,6 @@
+//this is a dummy file used during Front end development. Not used in the final version of the app
+
+
 //global response variable
 
 var JSONResponse;
