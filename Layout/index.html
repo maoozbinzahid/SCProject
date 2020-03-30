@@ -13,18 +13,13 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
     <link href='https://fonts.googleapis.com/css?family=Berkshire Swash' rel='stylesheet'>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+   
+    <!-- This is added by Mahnoor as a dummy to remove later on whe working on backend -->
+    <script type="text/javascript" src="Recipes-Dummy-Mahnoor.json"></script>
 
-	
-
-	<!-- This is added by maooz as a dummy js file to remove later on whe working on backend -->
-	<script src="dummyjs_Maooz.js"></script> 
-  <!-- This is added by Mahnoor as a dummy to remove later on whe working on backend -->
-  <script type="text/javascript" src="Recipes-Dummy-Mahnoor.json"></script>
-
-  <!--CSS for third column----->
-  <link rel="stylesheet" type="text/css" href="shopping-list.css">
-
-  
+    <!--CSS for third column----->
+    <link rel="stylesheet" type="text/css" href="shopping-list.css">
 
 
 </head>
@@ -35,7 +30,7 @@
         
     <img id="logo" src="logo.png" style="height: 50px; width: 50px; border-radius: 50%;">
     
-    <p class="mt-3" href="#" id="brand" style="font-family: 'Berkshire Swash'; font-size: 30px; color: #FFFFFFF"> Recipe Finder </p>
+    <p class="mt-3" href="#" id="brand" style="font-family: 'Berkshire Swash'; font-size: 30px; color: #FFFFFF"> Recipe Finder </p>
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,8 +41,8 @@
 
             <li class="nav-item">
                 <div class="searchbar">
-                    <input class="search_input" type="text" name="" placeholder="Enter the recipe you want to find...">
-                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                    <input id="searchbox" class="search_input" type="text" name="" placeholder="Enter the recipe you want to find...">
+                        <button id="search_btn" class="search_icon" type="submit"><i class="fas fa-search"  style="color: #000;"></i></button>
                 </div>
             </li>
 
@@ -77,46 +72,20 @@
 
         <div class="column" id="first_column" style="background-color:#aaa;">
 			<!--This would be updated on runtime  -->
-
-			<div class="row"><img class="recipe_image" src="moms_spaghetti.jpg"><div><p class="recipe_name"><a href="#" onclick="onRecipeNameClick('Mom\'s Spaghetti')">Mom's spaghetti</a></p><p class="recipe_description">Recipe by Eminem</p></div></div>
+        <div class="row" style="height: 100%">No Records Generated...</div>
+			<!-- <div class="row"><img class="recipe_image" src="moms_spaghetti.jpg"><div><p class="recipe_name"><a href="#" onclick="onRecipeNameClick('Mom\'s Spaghetti')">Mom's spaghetti</a></p><p class="recipe_description">Recipe by Eminem</p></div></div> -->
 			
 
-		</div>
+		    </div>
 
 
 
 
 
   
-        <div class="column" id="second_column" >
-            <div class="card">
-   <div class="header">
-   <img src = "recipe.jpeg"alt = "Picture for recipe">
-      <div class="icon">
-      <a href="#"><i class=" fa fa-heart"></i></a>
-      </div>
-   </div>
-   <div class="text">
-      <h1 class="food">
-         Chinese Noodles
-      </h1>
-      <i class="fa fa-clock" aria-hidden="true"> 15 Mins</i>
-      <i class="fa fa-users"> Serves 2</i>
-      
-      <div class="stars">
-         <li>
-            <a href="#"><i class="fa fa-star"></i></a>
-            <a href="#"><i class="fa fa-star"></i></a>
-            <a href="#"><i class="fa fa-star"></i></a>
-            <a href="#"><i class="fa fa-star"></i></a>
-            <a href="#"><i class="fa fa-star-o"></i></a>
-         </li>
-      </div>
-      <p class="info"> The order information and details are here</p>
-   </div>
-   <a href="#" class="btn1">Let's Cook!</a>
-</div>
-</div>
+    <div class="column" id="second_column" >
+        
+</div> 
   
   <div class="column" id="third_column" style="box-shadow: 0px 0px 10px 2px #000;">
 
@@ -167,8 +136,11 @@
   
 
 <footer> © Recipe Finder</footer>
-<!-- linking bundle.js -->
-  <script src="dist\main.js"></script>
+
+
+<!-- webpack output file -->
+<script src="dist/main.js"></script>
+
 
 <!--- script for reading json and extracting ingredients, to be adjusted laterwhen working on back-end-->
 <script>
@@ -188,9 +160,6 @@
         
      });
  </script>
-
-
-
 
 </body>
 </html>
