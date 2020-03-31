@@ -156,7 +156,7 @@ function Favourites_ColumnOne(items){
 		html = html + `<div class="row"><img class="recipe_image" src=${items[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${items[i].title}</a></p><p class="recipe_description">${items[i].publisher}</p></div></div>`;
 	}
 	if(items.length==0){
-		html= `<div class="row" style="height: 100%">You haven't added any recipes to the favourites list.</div>`;
+		html= `<div class="row" id="nohover" style="height: 100%">You haven't added any recipes to the favourites list.</div>`;
 	}
 	else{
 		html +=`<div class="row" id="nohover" style="height: 100%"> </div>` 
