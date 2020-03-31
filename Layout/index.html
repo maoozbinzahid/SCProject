@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>The recipe Finder</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="design.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+    <link href='https://fonts.googleapis.com/css?family=Berkshire Swash' rel='stylesheet'>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+   
+    <!-- This is added by Mahnoor as a dummy to remove later on whe working on backend -->
+    <script type="text/javascript" src="Recipes-Dummy-Mahnoor.json"></script>
+
+    <!--CSS for third column----->
+    <link rel="stylesheet" type="text/css" href="shopping-list.css">
+
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning fixed-top" style="background-color: #000000; text-align: center">
+        
+    <img id="logo" src="logo.png" style="height: 50px; width: 50px; border-radius: 50%;">
+    
+    <p class="mt-3" href="#" id="brand" style="font-family: 'Berkshire Swash'; font-size: 30px; color: #FFFFFF"> Recipe Finder </p>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto topnav">
+
+            <li class="nav-item">
+                <div class="searchbar">
+                    <input id="searchbox" class="search_input" type="text" name="" placeholder="Enter the recipe you want to find...">
+                        <button id="search_btn" class="search_icon" type="submit"><i class="fas fa-search"  style="color: #000;"></i></button>
+                </div>
+            </li>
+
+            <li class="nav-item mt-2"><a class="nav-link" href="#">Shopping Cart
+            <i class="fa fa-shopping-cart fa-1x" aria-hidden="true" ></i>
+            </a></li>
+
+            <li class="nav-item mt-2">
+                <a class="nav-link" href="#">About</a>
+            </li>
+
+            <li class="nav-item mt-2">
+                <a class="nav-link" id="favourites" href="#">Favourites</a>
+            </li>
+
+            <li class="nav-item mt-2">
+                <a class="nav-link" href="#">Contact</a>
+            </li>
+
+        </ul>
+    </div>
+
+</nav>
+
+<div class="container-fluid maxWidth">
+    <div class="row">
+
+        <div class="column" id="first_column" style="background-color:#aaa;">
+			<!--This would be updated on runtime  -->
+        <div class="row" style="height: 100%">No Records Generated...</div>
+			<!-- <div class="row"><img class="recipe_image" src="moms_spaghetti.jpg"><div><p class="recipe_name"><a href="#" onclick="onRecipeNameClick('Mom\'s Spaghetti')">Mom's spaghetti</a></p><p class="recipe_description">Recipe by Eminem</p></div></div> -->
+			
+
+		    </div>
+
+
+
+
+
+  
+        <div class="column" id="second_column" >
+            <div class="card">
+   <div class="header">
+   <img src = "recipe.jpeg"alt = "Picture for recipe">
+      <div class="icon">
+      <a href="#" id="addToLikes"><i id="like_icon" class="fa fa-heart" ></i></a>
+      </div>
+   </div>
+   <div class="text">
+      <h1 class="food">
+         Chinese Noodles
+      </h1>
+      <i class="fa fa-clock" aria-hidden="true"> 15 Mins</i>
+      <i class="fa fa-users"> Serves 2</i>
+      
+      <div class="stars">
+         <li>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star-o"></i></a>
+         </li>
+      </div>
+      <p class="info"> The order information and details are here</p>
+   </div>
+   <a href="#" class="btn1">Let's Cook!</a>
+</div>
+</div>
+  
+  <div class="column" id="third_column" style="box-shadow: 0px 0px 10px 2px #000;">
+
+    <div id='Cart'>
+      <h4 >View My Shopping List</h4>
+    </div>
+
+    <div class="cart">
+    <div id="Ingredients">
+      <ul>
+        <li>
+          <div class='each-item'> 
+            <h6>Pack of Noodles </h6>
+            <p>
+              <input type="text" class="qty" placeholder="3"> x $5.00
+              <span><a href="#"><i class='fa fa-minus-circle'></i></a></span>
+            </p>
+           <hr>
+    
+          </div>
+        </li>
+      </ul>
+  </div>
+
+
+  <div class="Sub-Total-Section"> 
+   <ul>
+      <li class="totalRow"><span class="label"><strong>Sub-Total:</strong></span><span class="value"> $35.00</span></li>
+      
+      <li class="totalRow"><span class="label"><strong>Shipping:</strong></span><span class="value"> $5.00</span></li>
+      
+      <li class="totalRow"><span class="label"><strong>Tax:</strong></span><span class="value"> $4.00</span></li>
+   </ul> 
+  </div>
+
+
+  <div class="Total">
+    <li class="totalRow final"><span class="label">TOTAL:</span><span class="value">  $44.00</span></li>
+  </div>
+
+  <div>
+    <button class="check-out-btn"> CHECKOUT</button>
+  </div>
+
+
+</div>
+</div>
+  
+
+<footer> © Recipe Finder</footer>
+
+
+<!-- webpack output file -->
+<script src="dist/main.js"></script>
+
+
+<!--- script for reading json and extracting ingredients, to be adjusted laterwhen working on back-end-->
+<script>
+      $(document).ready(function(){
+        var rec= recipes;
+
+         //Will Need Index of Recipe
+        var sample_rec = rec[0]["ingredients"];
+
+        for(var i=0; i < sample_rec.length; i++)
+        {
+          var name =sample_rec[i]["name"];
+          var quantity=sample_rec[i]["quantity"];
+          $("#Ingredients").append("<li><div class='each-item'><h6>"+name+
+            "</h6><p><input type='text' class='qty' placeholder='" +quantity +"'> x $5.00(price here) <span style='left:30%';> <a href='#''><i class='fa fa-minus-circle'></i></a> </span></p><hr></div></li>");
+        }
+        
+     });
+ </script>
+
+</body>
+</html>

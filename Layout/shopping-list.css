@@ -1,0 +1,60 @@
+
+    footer { background-color:#353b48; color:white;width:100%; text-align:center; margin-top:5%}
+
+    .check-out-btn{ 
+      background-color: #353b48; 
+      margin-top:8%; 
+      text-align:center; 
+      height:30px;  
+      color:white;
+      width:100%;
+      border-radius: 5px;
+      border: none;}
+
+    .Total {position:relative;background:transparent; color: #EF3E36; font-size:22px;text-align: right;}
+
+    .check-out-btn:hover{ background-color:#EF3E36 }
+
+    .Sub-Total-Section{
+      position:relative;
+      background:transparent; 
+      color: #696969; 
+      text-transform: uppercase; 
+      text-align: right; 
+      font-weight:bolder;
+      margin:5px;
+      font-size:15px}
+
+    .each-item h6{
+      color: #EF3E36;
+      text-align: left;
+      font-weight: normal;
+      position:relative;
+      margin-top:15px;
+      margin-left:3px;}
+
+    .each-item p { font-size:12px;}
+
+    .each-item p input{ 
+      position:relative;
+      background: #EFEBD8;  
+      color: #fff;
+      text-align: center;
+      transition: 250ms;
+      width:72px; }
+
+    .each-item p span{ left:50%;font-size:16px;position:relative }
+
+    .fa-minus-circle{ color:#17BEBB }
+
+    #Cart{ 
+      display: block; 
+      background: #EF3E36;  
+      color: #fff; 
+      position: relative;
+      text-transform: uppercase; 
+      text-align: center;
+      transition: 250ms; 
+      margin-top:3% }
+
+    #Cart h4{ position:relative;font-size:20px;box-shadow: 0px 0px 8px 1px grey }
