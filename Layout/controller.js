@@ -4,7 +4,7 @@ import Search from './search.js';
 import {searchButton, searchBox, output, column1} from './SearchView.js';
 import Likes  from './Likes.js'
 import {likeButton, favouriteButton ,like_icon} from './LikesView.js';
-var Cookies	= require('js-cookie');
+
 
 
 
@@ -15,23 +15,28 @@ class Session_Controller{
 		
 	}
 
- 	setCookie(){
- 		Cookies.set("Object",likes.likedItems,{ expires: 7 });
+ 	setState(){
+ 		localStorage.setItem("Object",JSON.stringify(likes.likedItems));
  	}
 
- 	ReadCookie(){
+ 	ReadState(){
  		var obj = new Likes();
- 		if(typeof(Cookies.get().Object)==='undefined'){ 
- 			 console.log("LENGTH 0");
+ 		if (typeof(Storage) !== "undefined"){
+ 			if(localStorage.getItem("Object")===null){ 
+ 				return obj;
+ 			}
+ 			else{
+ 				obj.likedItems = JSON.parse(localStorage.getItem("Object"));
+ 				console.log(obj.likedItems);
+ 			}
+ 		
  		}
  		else{
- 			obj.likedItems = Cookies.getJSON("Object");
- 			
+ 			alert("Your browser doesn't support state maintenance");
  		}
  		console.log(obj);
  		return obj;
- 		
- 	}
+ }
  	
 }
 
@@ -39,7 +44,7 @@ class Session_Controller{
 //this object hold the currently like recipes
 
 let session_controller = new Session_Controller();
-let likes = session_controller.ReadCookie();
+let likes = session_controller.ReadState();
 
 //This will hold the array that contains the response from the api 
 var response;
@@ -76,7 +81,7 @@ likeButton.addEventListener('click', e=>{
 	for(var i=0 ; i<likes.likedItems.length ; i++){
 		if(likes.likedItems[i].recipe_id === response[selectedItem_Index].recipe_id){
 			likes.remove(likes.likedItems[i]);
-			session_controller.setCookie();
+			session_controller.setState();
 			a=true;
 			break;
 		}
@@ -84,7 +89,7 @@ likeButton.addEventListener('click', e=>{
 	//if item doesn't already exist in the liked list
 	if(a===false){
 		likes.add(response[selectedItem_Index]);
-		session_controller.setCookie();
+		session_controller.setState();
 		
 	}
 
