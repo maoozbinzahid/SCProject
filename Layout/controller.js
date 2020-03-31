@@ -159,7 +159,7 @@ function Favourites_ColumnOne(items){
 		html= `<div class="row" style="height: 100%">You haven't added any recipes to the favourites list.</div>`;
 	}
 	else{
-		html +=`<div class="row" style="height: 100%"> </div>` 
+		html +=`<div class="row" id="nohover" style="height: 100%"> </div>` 
 	}
 	column1.innerHTML = html;
 
