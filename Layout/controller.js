@@ -1,10 +1,10 @@
 //controller.js file
 
 import Search from './search.js';
-import {searchButton, searchBox, output, column1} from './SearchView.js';
+import {searchButton, searchBox, column1} from './SearchView.js';
 import Likes  from './Likes.js'
 import {likeButton, favouriteButton ,like_icon} from './LikesView.js';
-import {recipe_column} from './RecipeView.js';
+import {recipe_column} from './recipeView.js';
 
 
 //class to maintain state
