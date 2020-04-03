@@ -171,6 +171,10 @@ function Favourites_ColumnOne(items){
 	$(".rec").on("click",function(){
 		selectedItem_Index = onRecipeNameClick($(this).text(), items);
 		console.log("Selected Item is:" + selectedItem_Index);
+		console.log("Selected Item is:" + items[selectedItem_Index].title);
+		rimage.src = items[selectedItem_Index].image_url;
+		rname.innerHTML =items[selectedItem_Index].title;
+		rdesc.innerHTML = items[selectedItem_Index].publisher;
 	});
 
 }
