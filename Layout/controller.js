@@ -1,10 +1,12 @@
 //controller.js file
 
 import Search from './search.js';
-import {searchButton, searchBox,column1} from './SearchView.js';
+import {searchButton, searchBox, output, column1} from './SearchView.js';
 import Likes  from './Likes.js'
 import {likeButton, favouriteButton ,like_icon} from './LikesView.js';
 import {recipe_column, rname,rimage,rdesc} from './recipeView.js';
+
+
 
 
 //class to maintain state
@@ -65,12 +67,12 @@ const controlsearch = async () => {
 
 //OnClicking the search button it resturns the json file from the api
 
-	
 searchButton.addEventListener('click', e => {
     e.preventDefault();
     selectedItem_Index=-1; //resetting the selected item on each search
     controlsearch();
 });
+
 
 
 likeButton.addEventListener('click', e=>{
@@ -121,29 +123,25 @@ function PopulateColumnOne(JSONResponse){
 	}
 
 	column1.innerHTML = html;
-    
+
 	//adding on click method of each of list items displayed
-	
-	//enables like button
-$(".rec").on("click",function(){
-	//selectedItem_Index = onRecipeNameClick($(this).text(), JSONResponse);
-		console.log("testin rec");
-		
-		var r = onRecipeNameClick($(this).text(), JSONResponse);
-		console.log(r);
-       // rimage.src = `${JSONResponse[r].image_url}`;
-		//rname.innerHTML =` ${JSONResponse[r].title}`;
-		//rdesc.innerHTML = `${JSONResponse[r].publisher}`;
+	$(".rec").on("click",function(){
+		selectedItem_Index = onRecipeNameClick($(this).text(), JSONResponse);
+		console.log("Selected Item is:" + selectedItem_Index);
+		 rimage.src = `${JSONResponse[selectedItem_Index].image_url}`;
+		rname.innerHTML =` ${JSONResponse[selectedItem_Index].title}`;
+		rdesc.innerHTML = `${JSONResponse[selectedItem_Index].publisher}`;
 	
 	});
+
+	//enables like button
+
 	if(!like_icon.classList.contains("fa-heart")){
 		like_icon.classList.add("fa-heart");
 	}
 
 
 }
-
-
 
 //function that returns the index of object clicked
 function onRecipeNameClick(val,JSONResponse){
