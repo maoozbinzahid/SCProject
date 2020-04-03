@@ -1,13 +1,10 @@
 //controller.js file
 
 import Search from './search.js';
-import {searchButton, searchBox, output, column1} from './SearchView.js';
+import {searchButton, searchBox,column1} from './SearchView.js';
 import Likes  from './Likes.js'
 import {likeButton, favouriteButton ,like_icon} from './LikesView.js';
-
-var likeButton_dummy;
-var like_icon_dummy;
-
+import {recipe_column, rname,rimage,rdesc} from './recipeView.js';
 
 
 //class to maintain state
@@ -76,7 +73,6 @@ searchButton.addEventListener('click', e => {
 });
 
 
-function bindEvents(likeButton,like_icon) {
 likeButton.addEventListener('click', e=>{
 	e.preventDefault();
 	//if item already exists in the liked list
@@ -99,7 +95,6 @@ likeButton.addEventListener('click', e=>{
 	console.log(likes.likedItems.length);
 
 });
-}
 
 
 //clicking on favourite button populates column one with like recipes
@@ -126,29 +121,29 @@ function PopulateColumnOne(JSONResponse){
 	}
 
 	column1.innerHTML = html;
-    var htmlc2 = ""
-	
+    
 	//adding on click method of each of list items displayed
-	$(".rec").on("click",function(){
-	//selectedItem_Index = onRecipeNameClick($(this).text(), JSONResponse);
-		//console.log("Selected Item is:" + selectedItem_Index);
-		var r = onRecipeNameClick($(this).text(), JSONResponse);
-		htmlc2 = `<div class="card"><div class="header"><img  src=${JSONResponse[r].image_url} alt = "Picture for recipe" id = "rimage" ><div class="icon"><a href="#" id="addToLikes"><i id="like_icon" class="fa fa-heart" ></i></a></div></div><div class="text"><h1 class="food" id = "rname">${JSONResponse[r].title}</h1><i class="fa fa-clock" aria-hidden="true"> 15 Mins</i><i class="fa fa-users"> Serves 2</i><div class="stars"><li><a href="#"><i class="fa fa-star"></i></a><a href="#"><i class="fa fa-star"></i></a><a href="#"><i class="fa fa-star"></i></a><a href="#"><i class="fa fa-star"></i></a><a href="#"><i class="fa fa-star-o"></i></a></li></div><p class="info" id = ""rinfo> ">${JSONResponse[r].publisher}</p></div><a href="#" class="btn1">Let's Cook!</a></div>`;
-		output.innerHTML = htmlc2;
-		
-		likeButton_dummy = document.getElementById("addToLikes");
-		like_icon_dummy = document.getElementById('like_icon');
-		bindEvents(likeButton_dummy,like_icon_dummy);
-	});
-
+	
 	//enables like button
-
+$(".rec").on("click",function(){
+	//selectedItem_Index = onRecipeNameClick($(this).text(), JSONResponse);
+		console.log("testin rec");
+		
+		var r = onRecipeNameClick($(this).text(), JSONResponse);
+		console.log(r);
+       // rimage.src = `${JSONResponse[r].image_url}`;
+		//rname.innerHTML =` ${JSONResponse[r].title}`;
+		//rdesc.innerHTML = `${JSONResponse[r].publisher}`;
+	
+	});
 	if(!like_icon.classList.contains("fa-heart")){
 		like_icon.classList.add("fa-heart");
 	}
 
 
 }
+
+
 
 //function that returns the index of object clicked
 function onRecipeNameClick(val,JSONResponse){
