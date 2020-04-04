@@ -128,7 +128,8 @@
     <div class="cart">
     <div id="Ingredients">
       <ul>
-        <li>
+        <li id="Initial"> Your Shopping List Is Currently Empty </li>
+        <!-- li>
           <div class='each-item'> 
             <h6>Pack of Noodles </h6>
             <p>
@@ -138,12 +139,12 @@
            <hr>
     
           </div>
-        </li>
+        </li> -->
       </ul>
   </div>
 
 
-  <div class="Sub-Total-Section"> 
+  <!-- <div class="Sub-Total-Section"> 
    <ul>
       <li class="totalRow"><span class="label"><strong>Sub-Total:</strong></span><span class="value"> $35.00</span></li>
       
@@ -160,7 +161,7 @@
 
   <div>
     <button class="check-out-btn"> CHECKOUT</button>
-  </div>
+  </div> -->
 
 
 </div>
@@ -174,24 +175,7 @@
 <script src="dist/main.js"></script>
 
 
-<!--- script for reading json and extracting ingredients, to be adjusted laterwhen working on back-end-->
-<script>
-      $(document).ready(function(){
-        var rec= recipes;
 
-         //Will Need Index of Recipe
-        var sample_rec = rec[0]["ingredients"];
-
-        for(var i=0; i < sample_rec.length; i++)
-        {
-          var name =sample_rec[i]["name"];
-          var quantity=sample_rec[i]["quantity"];
-          $("#Ingredients").append("<li><div class='each-item'><h6>"+name+
-            "</h6><p><input type='text' class='qty' placeholder='" +quantity +"'> x $5.00(price here) <span style='left:30%';> <a href='#''><i class='fa fa-minus-circle'></i></a> </span></p><hr></div></li>");
-        }
-        
-     });
- </script>
 
 </body>
 </html>
