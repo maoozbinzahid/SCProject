@@ -110,7 +110,7 @@ function Adjust(s, i ){
 
 function PopulateList(ing, quant){
         ingredients.innerHTML="";
-        ingredients.innerHTML= "<li><p id='h'> Serving:<input type='number' id='s' value='" +def +"'></p></li>";
+        ingredients.innerHTML= "<li><p id='h'> Serving:<input type='number' min='1' id='s' value='" +def +"'></p></li>";
         
 
         for(var i=0; i < ing.length; i++)
