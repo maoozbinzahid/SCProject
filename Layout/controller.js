@@ -58,7 +58,7 @@ let likes = session_controller.ReadState();
 var response;
 //this will hold the index of currently selected item
 let selectedItem_Index = -1;
-var elements_per_page = 5;
+var elements_per_page = 10;
 var sta = 0;
 var limit = elements_per_page;
 var max_size = 0;
@@ -307,10 +307,13 @@ function Favourites_ColumnOne(items){
 	if (items.length > 0){
 
 		for (var i =sta ; i < limit; i++) {
+			if(i<max_size){
 			console.log(items[i].image_url);
 			html = `<div class="row"><img class="recipe_image" src=${items[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${items[i].title}</a></p><p class="recipe_description">${items[i].publisher}</p></div></div>`;
+			}else{break;}
 			column1.innerHTML += html;
-			$(".rec").on("click",function(){
+		}
+		$(".rec").on("click",function(){
 				selectedItem_Index = onRecipeNameClick($(this).text(), items);
 				generatelist(selectedItem_Index,items);
 				console.log("Selected Item is:" + selectedItem_Index);
@@ -319,8 +322,6 @@ function Favourites_ColumnOne(items){
 				rname.innerHTML =items[selectedItem_Index].title;
 				rdesc.innerHTML = items[selectedItem_Index].publisher;
 			});
-
-		}
 	}
 
 	// column1.innerHTML = html;
