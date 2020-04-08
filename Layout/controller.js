@@ -52,6 +52,12 @@ let likes = session_controller.ReadState();
 var response;
 //this will hold the index of currently selected item
 let selectedItem_Index = -1;
+var elements_per_page = 5;
+var sta = 0;
+var limit = elements_per_page;
+var max_size = 0;
+var check = true; 
+var html = " ";
 
 const controlsearch = async () => {
 
@@ -60,13 +66,15 @@ const controlsearch = async () => {
 
     const search = new Search(query);
     await search.getResults();
-    response = search.result.recipes;
-    PopulateColumnOne(search.result.recipes);
-
-
+	response = search.result.recipes;
+	max_size = response.length;
+	check = true;
+	PopulateColumnOne(search.result.recipes);
+	
 }
 
-//OnClicking the search button it resturns the json file from the api
+
+//OnClicking the search button it return the json file from the api
 
 searchButton.addEventListener('click', e => {
     e.preventDefault();
@@ -88,6 +96,7 @@ likeButton.addEventListener('click', e=>{
 			break;
 		}
 	}
+
 	//if item doesn't already exist in the liked list
 	if(a===false){
 		likes.add(response[selectedItem_Index]);
@@ -109,7 +118,10 @@ favouriteButton.addEventListener('click',e=>{
 		like_icon.classList.remove("fa-heart");
 	}
 
-	
+	sta = 0;
+	limit = elements_per_page;
+	max_size = likes.likedItems.length;
+	check = false;
 	Favourites_ColumnOne(likes.likedItems);
 
 });
@@ -117,19 +129,15 @@ favouriteButton.addEventListener('click',e=>{
 
 //function that populates column one with related recipes
 function PopulateColumnOne(JSONResponse){
-
-	// var b = JSONResponse;
-	var max_size=JSONResponse.length;
-	var sta = 0;
-	var html = " "
-    var elements_per_page = 5;
-    var limit = elements_per_page;
+	html = " ";
+	sta = 0;
+	max_size = JSONResponse.length;
+	limit = elements_per_page;
 	pagination(sta, limit, JSONResponse);
-	
-	
+	// var b = JSONResponse;
 	//Function for the pagination of records
-	function pagination(sta,limit, JSONResponse) {
 
+	function pagination(sta,limit, JSONResponse) {
 		for (var i =sta ; i < limit; i++) {
 			html = html + `<div class="row"><img class="recipe_image" src=${JSONResponse[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${JSONResponse[i].title}</a></p><p class="recipe_description">${JSONResponse[i].publisher}</p></div></div>`;
 		}
@@ -141,9 +149,8 @@ function PopulateColumnOne(JSONResponse){
 			rimage.src = `${JSONResponse[selectedItem_Index].image_url}`;
 			rname.innerHTML =` ${JSONResponse[selectedItem_Index].title}`;
 			rdesc.innerHTML = `${JSONResponse[selectedItem_Index].publisher}`;
-		});	
-	}
-
+	});	
+}
 	
 	// for(var i=0 ; i< JSONResponse.length ; i++){
 	// 	html = html + `<div class="row"><img class="recipe_image" src=${JSONResponse[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${JSONResponse[i].title}</a></p><p class="recipe_description">${JSONResponse[i].publisher}</p></div></div>`;
@@ -161,25 +168,34 @@ function PopulateColumnOne(JSONResponse){
 	$('#nextValue').click(function(){
 		var next = limit;
 		if(max_size>=next) {
-		  limit = limit+elements_per_page;
-		  column1.innerHTML = "";
-		  html = "";
-		  pagination(next,limit,JSONResponse);
+			limit = limit+elements_per_page;
+			column1.innerHTML = "";
+			html = "";
+			if (check == true){
+				pagination(next,limit,JSONResponse);
+			}
+			else {
+				pagination(next,limit,likes.likedItems);
+			}
+			
 		}
-
-	  });
+	});
 	
-	  //to move to the previous page with 5 elements
-	  $('#PreeValue').click(function(){
+	//to move to the previous page with 5 elements
+	$('#PreeValue').click(function(){
 		var pre = limit-(2*elements_per_page);
 		if(pre>=0) {
-		  limit = limit-elements_per_page;
-		  column1.innerHTML = "";
-		  html = "";
-		  pagination(pre,limit,JSONResponse);
+			limit = limit-elements_per_page;
+			column1.innerHTML = "";
+			html = "";
+			if (check == true){
+				pagination(pre,limit,JSONResponse);
+			}
+			else {
+				pagination(pre,limit,likes.likedItems);
+			}
 		}
-	
-	  });
+	});
 
 }
 
@@ -189,17 +205,31 @@ function onRecipeNameClick(val,JSONResponse){
 	JSONResponse.find(function(item, i){
   		if(item.title == val){
   		index = i;	
-    	return i;
-  		}
-	});
-	return index;
+		return i;
+	}
+});
+
+return index;
 }
 
 function Favourites_ColumnOne(items){
-	var html = "";
-	for(var i=0 ; i< items.length ; i++){
-		html = html + `<div class="row"><img class="recipe_image" src=${items[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${items[i].title}</a></p><p class="recipe_description">${items[i].publisher}</p></div></div>`;
+	html = " ";
+	// pagination(start,end,items);
+	var JSONResponse = items;
+	for (var i =sta ; i < limit; i++) {
+		html = html + `<div class="row"><img class="recipe_image" src=${JSONResponse[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${JSONResponse[i].title}</a></p><p class="recipe_description">${JSONResponse[i].publisher}</p></div></div>`;
 	}
+
+	// column1.innerHTML = html;
+	// //adding on click method of each of list items displayed
+	// $(".rec").on("click",function(){
+	// 	selectedItem_Index = onRecipeNameClick($(this).text(), JSONResponse);
+	// 	console.log("Selected Item is:" + selectedItem_Index);
+	// 	rimage.src = `${JSONResponse[selectedItem_Index].image_url}`;
+	// 	rname.innerHTML =` ${JSONResponse[selectedItem_Index].title}`;
+	// 	rdesc.innerHTML = `${JSONResponse[selectedItem_Index].publisher}`;
+	// });
+
 	if(items.length==0){
 		html= `<div class="row" id="nohover" style="height: 100%">You haven't added any recipes to the favourites list.</div>`;
 	}
