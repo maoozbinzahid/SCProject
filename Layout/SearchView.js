@@ -5,4 +5,4 @@ export var output = document.getElementById("second_column");
 
 //added by Maooz
 
-export var column1 = document.getElementById('first_column');
+export var column1 = document.getElementById('1st_column');

@@ -118,22 +118,38 @@ favouriteButton.addEventListener('click',e=>{
 //function that populates column one with related recipes
 function PopulateColumnOne(JSONResponse){
 
-	var html = ""
-	for(var i=0 ; i< JSONResponse.length ; i++){
-		html = html + `<div class="row"><img class="recipe_image" src=${JSONResponse[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${JSONResponse[i].title}</a></p><p class="recipe_description">${JSONResponse[i].publisher}</p></div></div>`;
+	// var b = JSONResponse;
+	var max_size=JSONResponse.length;
+	var sta = 0;
+	var html = " "
+    var elements_per_page = 5;
+    var limit = elements_per_page;
+	pagination(sta, limit, JSONResponse);
+	
+	
+	//Function for the pagination of records
+	function pagination(sta,limit, JSONResponse) {
+
+		for (var i =sta ; i < limit; i++) {
+			html = html + `<div class="row"><img class="recipe_image" src=${JSONResponse[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${JSONResponse[i].title}</a></p><p class="recipe_description">${JSONResponse[i].publisher}</p></div></div>`;
+		}
+		column1.innerHTML = html;
+		//adding on click method of each of list items displayed
+		$(".rec").on("click",function(){
+			selectedItem_Index = onRecipeNameClick($(this).text(), JSONResponse);
+			console.log("Selected Item is:" + selectedItem_Index);
+			rimage.src = `${JSONResponse[selectedItem_Index].image_url}`;
+			rname.innerHTML =` ${JSONResponse[selectedItem_Index].title}`;
+			rdesc.innerHTML = `${JSONResponse[selectedItem_Index].publisher}`;
+		});	
 	}
 
-	column1.innerHTML = html;
-
-	//adding on click method of each of list items displayed
-	$(".rec").on("click",function(){
-		selectedItem_Index = onRecipeNameClick($(this).text(), JSONResponse);
-		console.log("Selected Item is:" + selectedItem_Index);
-		 rimage.src = `${JSONResponse[selectedItem_Index].image_url}`;
-		rname.innerHTML =` ${JSONResponse[selectedItem_Index].title}`;
-		rdesc.innerHTML = `${JSONResponse[selectedItem_Index].publisher}`;
 	
-	});
+	// for(var i=0 ; i< JSONResponse.length ; i++){
+	// 	html = html + `<div class="row"><img class="recipe_image" src=${JSONResponse[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${JSONResponse[i].title}</a></p><p class="recipe_description">${JSONResponse[i].publisher}</p></div></div>`;
+	// }
+
+	// column1.innerHTML = html;
 
 	//enables like button
 
@@ -141,6 +157,29 @@ function PopulateColumnOne(JSONResponse){
 		like_icon.classList.add("fa-heart");
 	}
 
+	//to move to the next page with 5 elements
+	$('#nextValue').click(function(){
+		var next = limit;
+		if(max_size>=next) {
+		  limit = limit+elements_per_page;
+		  column1.innerHTML = "";
+		  html = "";
+		  pagination(next,limit,JSONResponse);
+		}
+
+	  });
+	
+	  //to move to the previous page with 5 elements
+	  $('#PreeValue').click(function(){
+		var pre = limit-(2*elements_per_page);
+		if(pre>=0) {
+		  limit = limit-elements_per_page;
+		  column1.innerHTML = "";
+		  html = "";
+		  pagination(pre,limit,JSONResponse);
+		}
+	
+	  });
 
 }
 
