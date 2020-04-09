@@ -132,24 +132,28 @@ function PopulateColumnOne(JSONResponse){
 	html = " ";
 	sta = 0;
 	max_size = JSONResponse.length;
+	console.log("len of search",max_size);
 	limit = elements_per_page;
+	column1.innerHTML = " ";
 	pagination(sta, limit, JSONResponse);
+	
 	// var b = JSONResponse;
 	//Function for the pagination of records
 
-	function pagination(sta,limit, JSONResponse) {
+	function pagination(sta,limit, json) {
 		for (var i =sta ; i < limit; i++) {
-			html = html + `<div class="row"><img class="recipe_image" src=${JSONResponse[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${JSONResponse[i].title}</a></p><p class="recipe_description">${JSONResponse[i].publisher}</p></div></div>`;
-		}
-		column1.innerHTML = html;
-		//adding on click method of each of list items displayed
-		$(".rec").on("click",function(){
-			selectedItem_Index = onRecipeNameClick($(this).text(), JSONResponse);
-			console.log("Selected Item is:" + selectedItem_Index);
-			rimage.src = `${JSONResponse[selectedItem_Index].image_url}`;
-			rname.innerHTML =` ${JSONResponse[selectedItem_Index].title}`;
-			rdesc.innerHTML = `${JSONResponse[selectedItem_Index].publisher}`;
-	});	
+			html = `<div class="row"><img class="recipe_image" src=${json[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${json[i].title}</a></p><p class="recipe_description">${json[i].publisher}</p></div></div>`;
+			column1.innerHTML += html;
+			//adding on click method of each of list items displayed
+			$(".rec").on("click",function(){
+				selectedItem_Index = onRecipeNameClick($(this).text(), json);
+				console.log("Selected Item is:" + selectedItem_Index);
+				rimage.src = `${json[selectedItem_Index].image_url}`;
+				rname.innerHTML =` ${json[selectedItem_Index].title}`;
+				rdesc.innerHTML = `${json[selectedItem_Index].publisher}`;
+		});	
+	}
+	
 }
 	
 	// for(var i=0 ; i< JSONResponse.length ; i++){
@@ -213,11 +217,28 @@ return index;
 }
 
 function Favourites_ColumnOne(items){
+	column1.innerHTML = " ";
 	html = " ";
+	console.log("items", items[0]);
 	// pagination(start,end,items);
-	var JSONResponse = items;
-	for (var i =sta ; i < limit; i++) {
-		html = html + `<div class="row"><img class="recipe_image" src=${JSONResponse[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${JSONResponse[i].title}</a></p><p class="recipe_description">${JSONResponse[i].publisher}</p></div></div>`;
+	// var JSONResponse = items;
+	console.log("len of items: ", items.length);
+	if (items.length > 0){
+
+		for (var i =sta ; i < limit; i++) {
+			console.log(items[i].image_url);
+			html = `<div class="row"><img class="recipe_image" src=${items[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${items[i].title}</a></p><p class="recipe_description">${items[i].publisher}</p></div></div>`;
+			column1.innerHTML += html;
+			$(".rec").on("click",function(){
+				selectedItem_Index = onRecipeNameClick($(this).text(), items);
+				console.log("Selected Item is:" + selectedItem_Index);
+				console.log("Selected Item is:" + items[selectedItem_Index].title);
+				rimage.src = items[selectedItem_Index].image_url;
+				rname.innerHTML =items[selectedItem_Index].title;
+				rdesc.innerHTML = items[selectedItem_Index].publisher;
+			});
+
+		}
 	}
 
 	// column1.innerHTML = html;
@@ -230,21 +251,11 @@ function Favourites_ColumnOne(items){
 	// 	rdesc.innerHTML = `${JSONResponse[selectedItem_Index].publisher}`;
 	// });
 
-	if(items.length==0){
-		html= `<div class="row" id="nohover" style="height: 100%">You haven't added any recipes to the favourites list.</div>`;
+	else if(items.length==0){
+		html = `<div class="row" style="height: 100%">You haven't added any recipes to the favourites list.</div>`;
+		alert("No items added to favourites, Please select items first")
 	}
 	else{
-		html +=`<div class="row" id="nohover" style="height: 100%"> </div>` 
+		html +=`<div class="row" style="height: 100%"> </div>` 
 	}
-	column1.innerHTML = html;
-
-	$(".rec").on("click",function(){
-		selectedItem_Index = onRecipeNameClick($(this).text(), items);
-		console.log("Selected Item is:" + selectedItem_Index);
-		console.log("Selected Item is:" + items[selectedItem_Index].title);
-		rimage.src = items[selectedItem_Index].image_url;
-		rname.innerHTML =items[selectedItem_Index].title;
-		rdesc.innerHTML = items[selectedItem_Index].publisher;
-	});
-
 }
