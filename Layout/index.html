@@ -158,45 +158,14 @@
     </div>
 
     <div class="cart">
-    <div id="Ingredients">
-      <ul>
-        <li>
-          <div class='each-item'> 
-            <h6>Pack of Noodles </h6>
-            <p>
-              <input type="text" class="qty" placeholder="3"> x $5.00
-              <span><a href="#"><i class='fa fa-minus-circle'></i></a></span>
-            </p>
-           <hr>
-    
-          </div>
-        </li>
-      </ul>
+       <div id="Ingredients">
+          <ul>
+              <li id="Initial"> Your Shopping List Is Currently Empty </li>
+          </ul>
+        </div>  
+
+    </div>
   </div>
-
-
-  <div class="Sub-Total-Section"> 
-   <ul>
-      <li class="totalRow"><span class="label"><strong>Sub-Total:</strong></span><span class="value"> $35.00</span></li>
-      
-      <li class="totalRow"><span class="label"><strong>Shipping:</strong></span><span class="value"> $5.00</span></li>
-      
-      <li class="totalRow"><span class="label"><strong>Tax:</strong></span><span class="value"> $4.00</span></li>
-   </ul> 
-  </div>
-
-
-  <div class="Total">
-    <li class="totalRow final"><span class="label">TOTAL:</span><span class="value">  $44.00</span></li>
-  </div>
-
-  <div>
-    <button class="check-out-btn"> CHECKOUT</button>
-  </div>
-
-
-</div>
-</div>
   
 
 <footer> © Recipe Finder</footer>
@@ -206,24 +175,6 @@
 <script src="dist/main.js"></script>
 
 
-<!--- script for reading json and extracting ingredients, to be adjusted laterwhen working on back-end-->
-<script>
-      $(document).ready(function(){
-        var rec= recipes;
-
-         //Will Need Index of Recipe
-        var sample_rec = rec[0]["ingredients"];
-
-        for(var i=0; i < sample_rec.length; i++)
-        {
-          var name =sample_rec[i]["name"];
-          var quantity=sample_rec[i]["quantity"];
-          $("#Ingredients").append("<li><div class='each-item'><h6>"+name+
-            "</h6><p><input type='text' class='qty' placeholder='" +quantity +"'> x $5.00(price here) <span style='left:30%';> <a href='#''><i class='fa fa-minus-circle'></i></a> </span></p><hr></div></li>");
-        }
-        
-     });
- </script>
 
 </body>
 </html>
