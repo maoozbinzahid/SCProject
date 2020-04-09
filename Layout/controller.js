@@ -16,7 +16,7 @@ function getFirstWord(str) { str=str.split(" "); return (str[1]); };
 function onlyUnique(value, index, self) { return self.indexOf(value) === index;}
 
 
-
+//added by Maooz for no reason
 
 //class to maintain state
 class Session_Controller{
