@@ -142,17 +142,21 @@ function PopulateColumnOne(JSONResponse){
 
 	function pagination(sta,limit, json) {
 		for (var i =sta ; i < limit; i++) {
+			if(i<max_size){
 			html = `<div class="row"><img class="recipe_image" src=${json[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${json[i].title}</a></p><p class="recipe_description">${json[i].publisher}</p></div></div>`;
 			column1.innerHTML += html;
+			}
+			else{break;}
 			//adding on click method of each of list items displayed
-			$(".rec").on("click",function(){
-				selectedItem_Index = onRecipeNameClick($(this).text(), json);
-				console.log("Selected Item is:" + selectedItem_Index);
-				rimage.src = `${json[selectedItem_Index].image_url}`;
-				rname.innerHTML =` ${json[selectedItem_Index].title}`;
-				rdesc.innerHTML = `${json[selectedItem_Index].publisher}`;
+			
+		}
+		$(".rec").on("click",function(){
+			selectedItem_Index = onRecipeNameClick($(this).text(), json);
+			console.log("Selected Item is:" + selectedItem_Index);
+			rimage.src = `${json[selectedItem_Index].image_url}`;
+			rname.innerHTML =` ${json[selectedItem_Index].title}`;
+			rdesc.innerHTML = `${json[selectedItem_Index].publisher}`;
 		});	
-	}
 	
 }
 	
