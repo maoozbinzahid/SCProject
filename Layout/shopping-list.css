@@ -1,7 +1,7 @@
 
     footer { background-color:#353b48; color:white;width:100%; text-align:center; margin-top:5%}
 
-    .check-out-btn{ 
+    #check-out-btn{ 
       background-color: #353b48; 
       margin-top:8%; 
       text-align:center; 
@@ -13,7 +13,7 @@
 
     .Total {position:relative;background:transparent; color: #EF3E36; font-size:22px;text-align: right;}
 
-    .check-out-btn:hover{ background-color:#EF3E36 }
+    #check-out-btn:hover{ background-color:#EF3E36 }
 
     .Sub-Total-Section{
       position:relative;
@@ -58,3 +58,26 @@
       margin-top:3% }
 
     #Cart h4{ position:relative;font-size:20px;box-shadow: 0px 0px 8px 1px grey }
+
+    #Initial { color: #696969; 
+      text-transform: uppercase; 
+      text-align: center; 
+      font-weight:bolder;
+      margin:5px;
+      font-size:15px }
+
+    #s {  background-color: #353b48; 
+      margin-top:8%; 
+      text-align:center; 
+      height:30px;  
+      color:white;
+      width:100%;
+      border-radius: 5px;
+      border: none; }
+
+    #h { color: #696969; 
+      text-transform: uppercase; 
+      text-align: center; 
+      font-weight:bolder;
+      margin:5px;
+      font-size:15px }

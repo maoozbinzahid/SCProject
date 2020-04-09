@@ -6,6 +6,14 @@ import Likes  from './Likes.js'
 import {likeButton, favouriteButton ,like_icon} from './LikesView.js';
 import {recipe_column, rname,rimage,rdesc} from './recipeView.js';
 
+import shoppingList from './List.js';
+import {checkoutButton, def_serving,ingredients, i} from './ListView.js';
+
+let def = def_serving.innerText.match(/\d+/g)[0];
+
+function getFirstWord(str) { str=str.split(" "); return (str[1]); };
+
+function onlyUnique(value, index, self) { return self.indexOf(value) === index;}
 
 
 
@@ -74,7 +82,81 @@ const controlsearch = async () => {
 }
 
 
-//OnClicking the search button it return the json file from the api
+const generatelist = async (index,JSONResponse) => {
+
+    const list = new shoppingList(index, JSONResponse);
+    await list.getIngred(); // list.n gives array of ingredients and list.q gives quantities
+    window.PerServing= ForOneServing(list.q);
+    PopulateList(list.n,list.q);
+  
+}
+
+
+//Adjusting Quantities depending upon serving
+
+function ForOneServing (q){
+  let forOne=[];
+  for (var i=0; i < q.length;i++)
+  {
+
+    if (q[i]=="-") { forOne.push("-");}
+
+    else{ forOne.push( ((q[i]))/(def));}
+  }
+  console.log(forOne)
+  return forOne
+}
+
+
+function Adjust(s, i ){
+  if (PerServing[i]=="-") return PerServing[i];
+  return ((PerServing[i])*parseInt(s)).toFixed(2); 
+}
+
+
+
+function PopulateList(ing, quant){
+        ingredients.innerHTML="";
+        ingredients.innerHTML= "<li><p id='h'> Serving:<input type='number' min='1' id='s' value='" +def +"'></p></li>";
+        
+
+        for(var i=0; i < ing.length; i++)
+        {
+          var name =ing[i];
+          var q=quant[i];
+          if (q !="-") { 
+            var m = getFirstWord(name); 
+            name=name.replace(m,"");
+            name=name.replace(/^\s+/g, "");
+            name = name.replace(name[0],name[0].toUpperCase());
+             var m = m.replace(m[0],m[0].toUpperCase());
+
+          ingredients.innerHTML= ingredients.innerHTML + "<li><div class='each-item'><h6>"+name+
+            "</h6><p><input type='text' class='qty' placeholder='" +q +"'>" + "&nbsp &nbsp"+ m +"</p><hr></div></li>";
+       }
+       else { ingredients.innerHTML= ingredients.innerHTML + "<li><div class='each-item'><h6>"+name+
+            "</h6><p><input type='text' class='qty' placeholder='" +q +"'>"+ " </p><hr></div></li>";} }
+        
+
+        let update= document.getElementById("s");
+        let input_box=document.getElementsByClassName("qty");
+        
+        update.addEventListener('change',()=> { 
+         
+          for (var i=0; i < input_box.length;i++){
+            var new_v = Adjust(update.value, i);
+            input_box[i].placeholder=new_v;
+
+
+}
+
+        });
+
+      }
+
+
+//OnClicking the search button it resturns the json file from the api
+
 
 searchButton.addEventListener('click', e => {
     e.preventDefault();
@@ -82,6 +164,11 @@ searchButton.addEventListener('click', e => {
     controlsearch();
 });
 
+//Checkout button confirms the order
+// checkoutButton.addEventListener('click', e => {
+//     e.preventDefault();
+//     confirmOrder();
+// });
 
 
 likeButton.addEventListener('click', e=>{
@@ -129,6 +216,7 @@ favouriteButton.addEventListener('click',e=>{
 
 //function that populates column one with related recipes
 function PopulateColumnOne(JSONResponse){
+
 	html = " ";
 	sta = 0;
 	max_size = JSONResponse.length;
@@ -136,6 +224,7 @@ function PopulateColumnOne(JSONResponse){
 	limit = elements_per_page;
 	column1.innerHTML = " ";
 	pagination(sta, limit, JSONResponse);
+
 	
 	// var b = JSONResponse;
 	//Function for the pagination of records
@@ -262,4 +351,5 @@ function Favourites_ColumnOne(items){
 	else{
 		html +=`<div class="row" style="height: 100%"> </div>` 
 	}
+
 }
