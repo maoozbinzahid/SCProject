@@ -4,9 +4,16 @@ import Search from './search.js';
 import {searchButton, searchBox, output, column1} from './SearchView.js';
 import Likes  from './Likes.js'
 import {likeButton, favouriteButton ,like_icon} from './LikesView.js';
-import {recipe_column, rname,rimage,rdesc} from './recipeView.js';
+import {rmain,rqty, rname,rimage,rdesc} from './recipeView.js';
+import {calculateServing} from './recipe.js'
+import shoppingList from './List.js';
+import {checkoutButton, def_serving,ingredients, i} from './ListView.js';
+var quantities = 0;
+let def = def_serving.innerText.match(/\d+/g)[0];
 
+function getFirstWord(str) { str=str.split(" "); return (str[1]); };
 
+function onlyUnique(value, index, self) { return self.indexOf(value) === index;}
 
 
 //class to maintain state
@@ -51,6 +58,12 @@ let likes = session_controller.ReadState();
 var response;
 //this will hold the index of currently selected item
 let selectedItem_Index = -1;
+var elements_per_page = 10;
+var sta = 0;
+var limit = elements_per_page;
+var max_size = 0;
+var check = true; 
+var html = " ";
 
 const controlsearch = async () => {
 
@@ -59,13 +72,95 @@ const controlsearch = async () => {
 
     const search = new Search(query);
     await search.getResults();
-    response = search.result.recipes;
-    PopulateColumnOne(search.result.recipes);
+	response = search.result.recipes;
+	max_size = response.length;
+	check = true;
+	PopulateColumnOne(search.result.recipes);
+	
+}
+
+const generatelist = async (index,JSONResponse) => {
+
+    const list = new shoppingList(index, JSONResponse);
+    await list.getIngred(); // list.n gives array of ingredients and list.q gives quantities
+	window.PerServing= ForOneServing(list.q);
+	
+	PopulateList(list.n,list.q);
+	quantities =  await calculateServing(list.n,list.q);
+	console.log("testquantity" + quantities)
+	console.log("test quantities " + quantities);
+	var intvalue = Math.round( quantities );
+	console.log("after round" + intvalue);
+	intvalue.toString();
+	console.log("int value " + intvalue);
+	rqty.innerHTML =  " Serves "+ intvalue;
+
+  
+}
+
+
+//Adjusting Quantities depending upon serving
+
+function ForOneServing (q){
+  let forOne=[];
+  for (var i=0; i < q.length;i++)
+  {
+
+    if (q[i]=="-") { forOne.push("-");}
+
+    else{ forOne.push( ((q[i]))/(def));}
+  }
+  console.log(forOne)
+  return forOne
+}
+
+
+function Adjust(s, i ){
+  if (PerServing[i]=="-") return PerServing[i];
+  return ((PerServing[i])*parseInt(s)).toFixed(2); 
+}
+
+function PopulateList(ing, quant){
+        ingredients.innerHTML="";
+        ingredients.innerHTML= "<li><p id='h'> Serving:<input type='number' min='1' id='s' value='" +def +"'></p></li>";
+        
+
+        for(var i=0; i < ing.length; i++)
+        {
+          var name =ing[i];
+          var q=quant[i];
+          if (q !="-") { 
+			var m = getFirstWord(name); 
+			if ((name.replace(m,"")).length!=1){ name = name.replace(m,"");}
+            name=name.replace(/^\s+/g, "");
+            name = name.replace(name[0],name[0].toUpperCase());
+             var m = m.replace(m[0],m[0].toUpperCase());
+
+          ingredients.innerHTML= ingredients.innerHTML + "<li><div class='each-item'><h6>"+name+
+            "</h6><p><input type='text' class='qty' placeholder='" +q +"'>" + "&nbsp &nbsp"+ m +"</p><hr></div></li>";
+       }
+       else { ingredients.innerHTML= ingredients.innerHTML + "<li><div class='each-item'><h6>"+name+
+            "</h6><p><input type='text' class='qty' placeholder='" +q +"'>"+ " </p><hr></div></li>";} }
+        
+
+        let update= document.getElementById("s");
+        let input_box=document.getElementsByClassName("qty");
+        
+        update.addEventListener('change',()=> { 
+         
+          for (var i=0; i < input_box.length;i++){
+            var new_v = Adjust(update.value, i);
+            input_box[i].placeholder=new_v;
 
 
 }
 
-//OnClicking the search button it resturns the json file from the api
+        });
+
+      }
+
+
+//OnClicking the search button it return the json file from the api
 
 searchButton.addEventListener('click', e => {
     e.preventDefault();
@@ -87,6 +182,7 @@ likeButton.addEventListener('click', e=>{
 			break;
 		}
 	}
+
 	//if item doesn't already exist in the liked list
 	if(a===false){
 		likes.add(response[selectedItem_Index]);
@@ -108,7 +204,10 @@ favouriteButton.addEventListener('click',e=>{
 		like_icon.classList.remove("fa-heart");
 	}
 
-	
+	sta = 0;
+	limit = elements_per_page;
+	max_size = likes.likedItems.length;
+	check = false;
 	Favourites_ColumnOne(likes.likedItems);
 
 });
@@ -116,23 +215,46 @@ favouriteButton.addEventListener('click',e=>{
 
 //function that populates column one with related recipes
 function PopulateColumnOne(JSONResponse){
-
-	var html = ""
-	for(var i=0 ; i< JSONResponse.length ; i++){
-		html = html + `<div class="row"><img class="recipe_image" src=${JSONResponse[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${JSONResponse[i].title}</a></p><p class="recipe_description">${JSONResponse[i].publisher}</p></div></div>`;
-	}
-
-	column1.innerHTML = html;
-
-	//adding on click method of each of list items displayed
-	$(".rec").on("click",function(){
-		selectedItem_Index = onRecipeNameClick($(this).text(), JSONResponse);
-		console.log("Selected Item is:" + selectedItem_Index);
-		 rimage.src = `${JSONResponse[selectedItem_Index].image_url}`;
-		rname.innerHTML =` ${JSONResponse[selectedItem_Index].title}`;
-		rdesc.innerHTML = `${JSONResponse[selectedItem_Index].publisher}`;
+	html = " ";
+	sta = 0;
+	max_size = JSONResponse.length;
+	console.log("len of search",max_size);
+	limit = elements_per_page;
+	column1.innerHTML = " ";
+	pagination(sta, limit, JSONResponse);
 	
-	});
+	// var b = JSONResponse;
+	//Function for the pagination of records
+
+	function pagination(sta,limit, json) {
+		for (var i =sta ; i < limit; i++) {
+			if(i<max_size){
+			html = `<div class="row"><img class="recipe_image" src=${json[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${json[i].title}</a></p><p class="recipe_description">${json[i].publisher}</p></div></div>`;
+			column1.innerHTML += html;
+			}
+			else{break;}
+			//adding on click method of each of list items displayed
+			
+		}
+		$(".rec").on("click",function(){
+			selectedItem_Index = onRecipeNameClick($(this).text(), json);
+			generatelist(selectedItem_Index,JSONResponse);
+			console.log("Selected Item is:" + selectedItem_Index);
+			
+			rimage.src = `${json[selectedItem_Index].image_url}`;
+			rname.innerHTML =` ${json[selectedItem_Index].title}`;
+			rdesc.innerHTML = `${json[selectedItem_Index].publisher}`;
+			rmain.href = `${json[selectedItem_Index].source_url}`;
+			
+		});	
+	
+}
+	
+	// for(var i=0 ; i< JSONResponse.length ; i++){
+	// 	html = html + `<div class="row"><img class="recipe_image" src=${JSONResponse[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${JSONResponse[i].title}</a></p><p class="recipe_description">${JSONResponse[i].publisher}</p></div></div>`;
+	// }
+
+	// column1.innerHTML = html;
 
 	//enables like button
 
@@ -140,6 +262,38 @@ function PopulateColumnOne(JSONResponse){
 		like_icon.classList.add("fa-heart");
 	}
 
+	//to move to the next page with 5 elements
+	$('#nextValue').click(function(){
+		var next = limit;
+		if(max_size>=next) {
+			limit = limit+elements_per_page;
+			column1.innerHTML = "";
+			html = "";
+			if (check == true){
+				pagination(next,limit,JSONResponse);
+			}
+			else {
+				pagination(next,limit,likes.likedItems);
+			}
+			
+		}
+	});
+	
+	//to move to the previous page with 5 elements
+	$('#PreeValue').click(function(){
+		var pre = limit-(2*elements_per_page);
+		if(pre>=0) {
+			limit = limit-elements_per_page;
+			column1.innerHTML = "";
+			html = "";
+			if (check == true){
+				pagination(pre,limit,JSONResponse);
+			}
+			else {
+				pagination(pre,limit,likes.likedItems);
+			}
+		}
+	});
 
 }
 
@@ -149,32 +303,59 @@ function onRecipeNameClick(val,JSONResponse){
 	JSONResponse.find(function(item, i){
   		if(item.title == val){
   		index = i;	
-    	return i;
-  		}
-	});
-	return index;
+		return i;
+	}
+});
+
+return index;
 }
 
 function Favourites_ColumnOne(items){
-	var html = "";
-	for(var i=0 ; i< items.length ; i++){
-		html = html + `<div class="row"><img class="recipe_image" src=${items[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${items[i].title}</a></p><p class="recipe_description">${items[i].publisher}</p></div></div>`;
+	column1.innerHTML = " ";
+	html = " ";
+	console.log("items", items[0]);
+	// pagination(start,end,items);
+	// var JSONResponse = items;
+	console.log("len of items: ", items.length);
+	if (items.length > 0){
+
+		for (var i =sta ; i < limit; i++) {
+			if(i<max_size){
+			console.log(items[i].image_url);
+			html = `<div class="row"><img class="recipe_image" src=${items[i].image_url}><div><p class="recipe_name"><a class="rec" href="#">${items[i].title}</a></p><p class="recipe_description">${items[i].publisher}</p></div></div>`;
+			}else{break;}
+			column1.innerHTML += html;
+		}
+		$(".rec").on("click",function(){
+				selectedItem_Index = onRecipeNameClick($(this).text(), items);
+				 generatelist(selectedItem_Index,items);
+				console.log("Selected Item is:" + selectedItem_Index);
+				console.log("Selected Item is:" + items[selectedItem_Index].title);
+				rimage.src = items[selectedItem_Index].image_url;
+				rname.innerHTML =items[selectedItem_Index].title;
+				rdesc.innerHTML = items[selectedItem_Index].publisher;
+				rmain.href = items[selectedItem_Index].source_url;
+				var intvalue = Math.round( quantities );
+				intvalue.toString();
+				rqty.innerHTML =  intvalue;
+			});
 	}
-	if(items.length==0){
-		html= `<div class="row" id="nohover" style="height: 100%">You haven't added any recipes to the favourites list.</div>`;
+
+	// column1.innerHTML = html;
+	// //adding on click method of each of list items displayed
+	// $(".rec").on("click",function(){
+	// 	selectedItem_Index = onRecipeNameClick($(this).text(), JSONResponse);
+	// 	console.log("Selected Item is:" + selectedItem_Index);
+	// 	rimage.src = `${JSONResponse[selectedItem_Index].image_url}`;
+	// 	rname.innerHTML =` ${JSONResponse[selectedItem_Index].title}`;
+	// 	rdesc.innerHTML = `${JSONResponse[selectedItem_Index].publisher}`;
+	// });
+
+	else if(items.length==0){
+		html = `<div class="row" style="height: 100%">You haven't added any recipes to the favourites list.</div>`;
+		alert("No items added to favourites, Please select items first")
 	}
 	else{
-		html +=`<div class="row" id="nohover" style="height: 100%"> </div>` 
+		html +=`<div class="row" style="height: 100%"> </div>` 
 	}
-	column1.innerHTML = html;
-
-	$(".rec").on("click",function(){
-		selectedItem_Index = onRecipeNameClick($(this).text(), items);
-		console.log("Selected Item is:" + selectedItem_Index);
-		console.log("Selected Item is:" + items[selectedItem_Index].title);
-		rimage.src = items[selectedItem_Index].image_url;
-		rname.innerHTML =items[selectedItem_Index].title;
-		rdesc.innerHTML = items[selectedItem_Index].publisher;
-	});
-
 }

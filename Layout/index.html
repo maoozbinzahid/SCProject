@@ -71,12 +71,44 @@
     <div class="row">
 
         <div class="column" id="first_column" style="background-color:#aaa;">
-			<!--This would be updated on runtime  -->
-        <div class="row" id="nohover" style="height: 100%">No Records Generated...</div>
-			<!-- <div class="row"><img class="recipe_image" src="moms_spaghetti.jpg"><div><p class="recipe_name"><a href="#" onclick="onRecipeNameClick('Mom\'s Spaghetti')">Mom's spaghetti</a></p><p class="recipe_description">Recipe by Eminem</p></div></div> -->
-			
+      <!--This would be updated on runtime  -->
+        <div class="column" id="nohover" style="height: 100%">
 
-		    </div>
+          <div class="row" style="justify-content: center;">
+
+            <!-- Pagination for the first column -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                <li class="page-item mt-2">
+                  <a id="PreeValue" class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true" style="color: #000000;">«</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li class="page-item mt-2">
+                  <a id="nextValue" class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true" style="color: #000000;">»</span>
+                    <span class="sr-only" >Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+        
+          </div>  
+          
+          <!-- Div to hold the searched records from the JSON response-->
+          <div class="row" id="1st_column" style="height: 100%;">
+            No Records Generated
+            
+          </div>
+        
+        </div>
+			<!-- <div class="row"><img class="recipe_image" src="moms_spaghetti.jpg"><div><p class="recipe_name"><a href="#" onclick="onRecipeNameClick('Mom\'s Spaghetti')">Mom's spaghetti</a></p><p class="recipe_description">Recipe by Eminem</p></div></div> -->
+      
+
+        </div>
+        
+        
 
 
 
@@ -86,17 +118,21 @@
         <div class="column" id="second_column" >
             <div class="card">
    <div class="header">
+
    <img src = "recipe.jpeg"alt = "Picture for recipe" id= "rimage">
+
       <div class="icon">
       <a href="#" id="addToLikes"><i id="like_icon" class="fa fa-heart" ></i></a>
       </div>
    </div>
    <div class="text">
-      <h1 class="food" id= "rname">
+
+      <h2 class="food" id= "rname">
          Welcome to Recipe Finder 
-      </h1>
-      <i class="fa fa-clock" aria-hidden="true"> 15 Mins</i>
-      <i class="fa fa-users"> Serves 2</i>
+
+      </h2>
+      <i class="fa fa-clock" aria-hidden="true"> On it!</i>
+      <i class="fa fa-users" id = "rqty"> Serves 2 </i>
       
       <div class="stars">
          <li>
@@ -107,9 +143,11 @@
             <a href="#"><i class="fa fa-star-o"></i></a>
          </li>
       </div>
-      <p class="info" id= "rdesc"> Nothing to show yet</p>
+
+      <p class="info" id= "rdesc"> With our exciting recipes</p>
+
    </div>
-   <a href="#" class="btn1">Let's Cook!</a>
+   <a href="#" class="btn1" id = "rmain">Let's visit the site main page!</a>
 </div>
 </div>
   
@@ -120,45 +158,14 @@
     </div>
 
     <div class="cart">
-    <div id="Ingredients">
-      <ul>
-        <li>
-          <div class='each-item'> 
-            <h6>Pack of Noodles </h6>
-            <p>
-              <input type="text" class="qty" placeholder="3"> x $5.00
-              <span><a href="#"><i class='fa fa-minus-circle'></i></a></span>
-            </p>
-           <hr>
-    
-          </div>
-        </li>
-      </ul>
+       <div id="Ingredients">
+          <ul>
+              <li id="Initial"> Your Shopping List Is Currently Empty </li>
+          </ul>
+        </div>  
+
+    </div>
   </div>
-
-
-  <div class="Sub-Total-Section"> 
-   <ul>
-      <li class="totalRow"><span class="label"><strong>Sub-Total:</strong></span><span class="value"> $35.00</span></li>
-      
-      <li class="totalRow"><span class="label"><strong>Shipping:</strong></span><span class="value"> $5.00</span></li>
-      
-      <li class="totalRow"><span class="label"><strong>Tax:</strong></span><span class="value"> $4.00</span></li>
-   </ul> 
-  </div>
-
-
-  <div class="Total">
-    <li class="totalRow final"><span class="label">TOTAL:</span><span class="value">  $44.00</span></li>
-  </div>
-
-  <div>
-    <button class="check-out-btn"> CHECKOUT</button>
-  </div>
-
-
-</div>
-</div>
   
 
 <footer> © Recipe Finder</footer>
@@ -168,24 +175,6 @@
 <script src="dist/main.js"></script>
 
 
-<!--- script for reading json and extracting ingredients, to be adjusted laterwhen working on back-end-->
-<script>
-      $(document).ready(function(){
-        var rec= recipes;
-
-         //Will Need Index of Recipe
-        var sample_rec = rec[0]["ingredients"];
-
-        for(var i=0; i < sample_rec.length; i++)
-        {
-          var name =sample_rec[i]["name"];
-          var quantity=sample_rec[i]["quantity"];
-          $("#Ingredients").append("<li><div class='each-item'><h6>"+name+
-            "</h6><p><input type='text' class='qty' placeholder='" +quantity +"'> x $5.00(price here) <span style='left:30%';> <a href='#''><i class='fa fa-minus-circle'></i></a> </span></p><hr></div></li>");
-        }
-        
-     });
- </script>
 
 </body>
 </html>
