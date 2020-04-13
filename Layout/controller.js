@@ -4,14 +4,16 @@ import Search from './search.js';
 import {searchButton, searchBox, output, column1} from './SearchView.js';
 import Likes  from './Likes.js'
 import {likeButton, favouriteButton ,like_icon} from './LikesView.js';
-import {recipe_column, rname,rimage,rdesc} from './recipeView.js';
-
+import {rmain,rqty, rname,rimage,rdesc,rate} from './recipeView.js';
+import {calculateServing} from './recipe.js'
 import shoppingList from './List.js';
 import {checkoutButton, def_serving,ingredients, i} from './ListView.js';
-
+var quantities = 0;
 let def = def_serving.innerText.match(/\d+/g)[0];
 
+
 function getFirstWord(str) { str=str.split(" "); return (str[1]); };
+
 
 function onlyUnique(value, index, self) { return self.indexOf(value) === index;}
 
@@ -79,12 +81,24 @@ const controlsearch = async () => {
 	
 }
 
+
 const generatelist = async (index,JSONResponse) => {
 
     const list = new shoppingList(index, JSONResponse);
     await list.getIngred(); // list.n gives array of ingredients and list.q gives quantities
-    window.PerServing= ForOneServing(list.q);
-    PopulateList(list.n,list.q);
+	window.PerServing= ForOneServing(list.q);
+	
+	PopulateList(list.n,list.q);
+	quantities =  await calculateServing(list.n,list.q);
+	
+	var intvalue = Math.round( quantities );
+	
+	intvalue.toString();
+
+	rqty.innerHTML =  " Serves "+ intvalue;
+	
+	rate.style.visibility = "visible";
+
   
 }
 
@@ -104,7 +118,6 @@ function ForOneServing (q){
   return forOne
 }
 
-
 function Adjust(s, i ){
   if (PerServing[i]=="-") return PerServing[i];
   return ((PerServing[i])*parseInt(s)).toFixed(2); 
@@ -120,8 +133,10 @@ function PopulateList(ing, quant){
           var name =ing[i];
           var q=quant[i];
           if (q !="-") { 
-            var m = getFirstWord(name); 
-            name=name.replace(m,"");
+
+			var m = getFirstWord(name); 
+			if ((name.replace(m,"")).length!=1){ name = name.replace(m,"");}
+
             name=name.replace(/^\s+/g, "");
             name = name.replace(name[0],name[0].toUpperCase());
              var m = m.replace(m[0],m[0].toUpperCase());
@@ -176,8 +191,8 @@ likeButton.addEventListener('click', e=>{
 	//if item doesn't already exist in the liked list
 	if(a===false){
 		likes.add(response[selectedItem_Index]);
+		//session_controller.setState();
 		session_controller.setState();
-		
 	}
 
 	console.log(likes.likedItems.length);
@@ -230,10 +245,17 @@ function PopulateColumnOne(JSONResponse){
 			selectedItem_Index = onRecipeNameClick($(this).text(), json);
 			generatelist(selectedItem_Index,JSONResponse);
 			console.log("Selected Item is:" + selectedItem_Index);
+
+			
 			rimage.src = `${json[selectedItem_Index].image_url}`;
 			rname.innerHTML =` ${json[selectedItem_Index].title}`;
 			rdesc.innerHTML = `${json[selectedItem_Index].publisher}`;
-		});	
+			rmain.href = `${json[selectedItem_Index].source_url}`;
+			rate.style.visibility = "visible";
+			like_icon.style.display = "inline-block";
+			
+		});
+
 	
 }
 	
@@ -314,13 +336,24 @@ function Favourites_ColumnOne(items){
 			column1.innerHTML += html;
 		}
 		$(".rec").on("click",function(){
+
+			    console.log("hello ji phir se")
 				selectedItem_Index = onRecipeNameClick($(this).text(), items);
-				generatelist(selectedItem_Index,items);
+				 generatelist(selectedItem_Index,items);
+
 				console.log("Selected Item is:" + selectedItem_Index);
 				console.log("Selected Item is:" + items[selectedItem_Index].title);
 				rimage.src = items[selectedItem_Index].image_url;
 				rname.innerHTML =items[selectedItem_Index].title;
 				rdesc.innerHTML = items[selectedItem_Index].publisher;
+				
+				rmain.href = items[selectedItem_Index].source_url;
+				like_icon.style.display = "inline-block";
+				// var intvalue = Math.round( quantities );
+				// intvalue.toString();
+				// rqty.innerHTML =  intvalue;
+				
+
 			});
 	}
 

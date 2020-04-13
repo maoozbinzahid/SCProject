@@ -2,10 +2,11 @@
   "name": "layout",
   "version": "1.0.0",
   "description": "",
-  "main": "SearchView.js",
+  "main": "controller.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack controller.js"
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --watch",
+    "start:dev": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,16 @@
     "webpack": "^4.42.1"
   },
   "devDependencies": {
-    "webpack-cli": "^3.3.11"
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "html-webpack-plugin": "^4.2.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   }
 }
