@@ -18,16 +18,16 @@
     }
     console.log("hello ji ji" +qd);
     qd = (qd/i);
-    console.log("sum of quantity" +qd);
+   
     if (ing.length>8)
     {
         qd = (qd * ing.length) /2;
-        console.log("sum of quantity" +qd);
+        
     }
     else
     {
         qd = (qd * ing.length) + 1;
-        console.log("sum of quantity" +qd);
+       
     }
     
     return qd; 

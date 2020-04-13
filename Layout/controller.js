@@ -87,12 +87,11 @@ const generatelist = async (index,JSONResponse) => {
 	
 	PopulateList(list.n,list.q);
 	quantities =  await calculateServing(list.n,list.q);
-	console.log("testquantity" + quantities)
-	console.log("test quantities " + quantities);
+	
 	var intvalue = Math.round( quantities );
-	console.log("after round" + intvalue);
+	
 	intvalue.toString();
-	console.log("int value " + intvalue);
+
 	rqty.innerHTML =  " Serves "+ intvalue;
 	
 	rate.style.visibility = "visible";
@@ -243,7 +242,6 @@ function PopulateColumnOne(JSONResponse){
 			generatelist(selectedItem_Index,JSONResponse);
 			console.log("Selected Item is:" + selectedItem_Index);
 			
-			console.log("hellhereoeooeo")
 			rimage.src = `${json[selectedItem_Index].image_url}`;
 			rname.innerHTML =` ${json[selectedItem_Index].title}`;
 			rdesc.innerHTML = `${json[selectedItem_Index].publisher}`;
