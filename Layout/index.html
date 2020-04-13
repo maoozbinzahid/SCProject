@@ -122,7 +122,7 @@
    <img src = "recipe.jpeg"alt = "Picture for recipe" id= "rimage">
 
       <div class="icon">
-      <a href="#" id="addToLikes"><i id="like_icon" class="fa fa-heart" ></i></a>
+      <a href="#" id="addToLikes"><i id="like_icon" class="fa fa-heart" style = "display:none"></i></a>
       </div>
    </div>
    <div class="text">
@@ -130,9 +130,9 @@
       <h2 class="food" id= "rname">
          Welcome to Recipe Finder 
 
-      </h2>
+      </h2><div id = "rate" style="visibility: visible;">
       <i class="fa fa-clock" aria-hidden="true"> On it!</i>
-      <i class="fa fa-users" id = "rqty"> Serves 2 </i>
+      <i class="fa fa-users" id = "rqty" > Serving 0 </i>
       
       <div class="stars">
          <li>
@@ -142,6 +142,7 @@
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star-o"></i></a>
          </li>
+        </div>
       </div>
 
       <p class="info" id= "rdesc"> With our exciting recipes</p>

@@ -4,7 +4,7 @@ import Search from './search.js';
 import {searchButton, searchBox, output, column1} from './SearchView.js';
 import Likes  from './Likes.js'
 import {likeButton, favouriteButton ,like_icon} from './LikesView.js';
-import {rmain,rqty, rname,rimage,rdesc} from './recipeView.js';
+import {rmain,rqty, rname,rimage,rdesc,rate} from './recipeView.js';
 import {calculateServing} from './recipe.js'
 import shoppingList from './List.js';
 import {checkoutButton, def_serving,ingredients, i} from './ListView.js';
@@ -94,6 +94,8 @@ const generatelist = async (index,JSONResponse) => {
 	intvalue.toString();
 	console.log("int value " + intvalue);
 	rqty.innerHTML =  " Serves "+ intvalue;
+	
+	rate.style.visibility = "visible";
 
   
 }
@@ -186,8 +188,8 @@ likeButton.addEventListener('click', e=>{
 	//if item doesn't already exist in the liked list
 	if(a===false){
 		likes.add(response[selectedItem_Index]);
+		//session_controller.setState();
 		session_controller.setState();
-		
 	}
 
 	console.log(likes.likedItems.length);
@@ -241,12 +243,15 @@ function PopulateColumnOne(JSONResponse){
 			generatelist(selectedItem_Index,JSONResponse);
 			console.log("Selected Item is:" + selectedItem_Index);
 			
+			console.log("hellhereoeooeo")
 			rimage.src = `${json[selectedItem_Index].image_url}`;
 			rname.innerHTML =` ${json[selectedItem_Index].title}`;
 			rdesc.innerHTML = `${json[selectedItem_Index].publisher}`;
 			rmain.href = `${json[selectedItem_Index].source_url}`;
+			rate.style.visibility = "visible";
+			like_icon.style.display = "inline-block";
 			
-		});	
+		});
 	
 }
 	
@@ -327,6 +332,7 @@ function Favourites_ColumnOne(items){
 			column1.innerHTML += html;
 		}
 		$(".rec").on("click",function(){
+			    console.log("hello ji phir se")
 				selectedItem_Index = onRecipeNameClick($(this).text(), items);
 				 generatelist(selectedItem_Index,items);
 				console.log("Selected Item is:" + selectedItem_Index);
@@ -334,10 +340,13 @@ function Favourites_ColumnOne(items){
 				rimage.src = items[selectedItem_Index].image_url;
 				rname.innerHTML =items[selectedItem_Index].title;
 				rdesc.innerHTML = items[selectedItem_Index].publisher;
+				
 				rmain.href = items[selectedItem_Index].source_url;
-				var intvalue = Math.round( quantities );
-				intvalue.toString();
-				rqty.innerHTML =  intvalue;
+				like_icon.style.display = "inline-block";
+				// var intvalue = Math.round( quantities );
+				// intvalue.toString();
+				// rqty.innerHTML =  intvalue;
+				
 			});
 	}
 

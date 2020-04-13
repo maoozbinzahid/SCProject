@@ -16,7 +16,7 @@
         }
     
     }
-    console.log("sum of quantity" +qd);
+    console.log("hello ji ji" +qd);
     qd = (qd/i);
     console.log("sum of quantity" +qd);
     if (ing.length>8)
