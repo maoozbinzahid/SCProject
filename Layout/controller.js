@@ -9,7 +9,7 @@ import {calculateServing} from './recipe.js'
 import shoppingList from './List.js';
 import {checkoutButton, def_serving,ingredients, i} from './ListView.js';
 var quantities = 0;
-let def = def_serving.innerText.match(/\d+/g)[0];
+
 
 
 function getFirstWord(str) { str=str.split(" "); return (str[1]); };
@@ -78,6 +78,7 @@ const controlsearch = async () => {
 	max_size = response.length;
 	check = true;
 	PopulateColumnOne(search.result.recipes);
+
 	
 }
 
@@ -85,19 +86,21 @@ const controlsearch = async () => {
 const generatelist = async (index,JSONResponse) => {
 
     const list = new shoppingList(index, JSONResponse);
-    await list.getIngred(); // list.n gives array of ingredients and list.q gives quantities
-	window.PerServing= ForOneServing(list.q);
-	
-	PopulateList(list.n,list.q);
-	quantities =  await calculateServing(list.n,list.q);
+    await list.getIngred();// list.n gives array of ingredients and list.q gives quantities
+    quantities =  await calculateServing(list.n,list.q);
 	
 	var intvalue = Math.round( quantities );
 	
 	intvalue.toString();
 
 	rqty.innerHTML =  " Serves "+ intvalue;
+    window.def = intvalue;
 	
-	rate.style.visibility = "visible";
+	rate.style.visibility = "visible"; 
+	window.PerServing= ForOneServing(list.q);
+	
+	PopulateList(list.n,list.q);
+	
 
   
 }
@@ -124,6 +127,7 @@ function Adjust(s, i ){
 }
 
 function PopulateList(ing, quant){
+
         ingredients.innerHTML="";
         ingredients.innerHTML= "<li><p id='h'> Serving:<input type='number' min='1' id='s' value='" +def +"'></p></li>";
         

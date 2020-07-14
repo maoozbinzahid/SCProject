@@ -16,7 +16,7 @@
         }
     
     }
-    console.log("hello ji ji" +qd);
+    
     qd = (qd/i);
    
     if (ing.length>8)

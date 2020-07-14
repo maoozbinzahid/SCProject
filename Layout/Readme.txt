@@ -6,8 +6,12 @@ The Group Members are
 3: Hasnat Ahmed Khan  228789
 4: Saad Akram         221434
 To build the project we need these Steps:
+Change directory to 'Layout':
 1: Build the project using command  "npm run build"
 2: Run the webpack-dev-server using command "npm run start:dev"
  This project uses Babel for cross browser support
  The index.html file will be opened in your default browser.
+
+Some test queries: pizza, pasta, chicken
+Need to clear cache data to reset favourites.
 
