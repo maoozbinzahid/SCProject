@@ -241,7 +241,6 @@ function PopulateColumnOne(JSONResponse){
 			selectedItem_Index = onRecipeNameClick($(this).text(), json);
 			generatelist(selectedItem_Index,JSONResponse);
 			console.log("Selected Item is:" + selectedItem_Index);
-			
 			rimage.src = `${json[selectedItem_Index].image_url}`;
 			rname.innerHTML =` ${json[selectedItem_Index].title}`;
 			rdesc.innerHTML = `${json[selectedItem_Index].publisher}`;
